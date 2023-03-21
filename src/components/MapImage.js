@@ -15,6 +15,7 @@ class MapImage extends Component {
 }
 
 export default MapImage;
+
 // import React from 'react';
 
 // const MapImage = ({ latitude, longitude, zoom = 13, width = 600, height = 400 }) => {
