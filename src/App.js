@@ -33,7 +33,7 @@ const App = () => {
       setErrorMessage(null);
       
       try {
-        const weatherResponse = await axios.get(`${process.env.REACT_APP_BACKENDURL}/weather`, {
+        const weatherResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather`, {
           params: {
             lat: data.lat,
             lon: data.lon,
