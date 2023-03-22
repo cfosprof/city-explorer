@@ -1,6 +1,6 @@
 City-Explorer 
 
-
+! [Web Request](IMG_1946.PNG)
 ## Overview
 City Explorer is a web application that allows users to explore cities by searching for their names. Users can view the exact latitude and longitude of the location, as well as a map of the area. In the future, the app will also provide weather, movie, and restaurant information related to the city.
 
@@ -37,6 +37,8 @@ LocationIQ API for geocoding
 03-20-2023 7:00pm - Updated error handling to display clear messages for the user.
 
 ## Credit and Collaborations
+[Logan Reece]()
+[Emmanuel Gonzalez]()
 [React DOCS](https://react.dev)
 [React-Bootstrap](https://react-bootstrap.github.io/)
 [LocationIQ](https://locationiq.com/docs)

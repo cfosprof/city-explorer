@@ -13,11 +13,14 @@ class LocationForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log("handleSubmit triggered");
     this.props.onSearch(this.state.location);
   };
 
   handleChange = (e) => {
-    this.setState({ location: e.target.value });
+    const newLocation = e.target.value;
+    console.log("Input value:", newLocation);
+    this.setState({ location: newLocation });
   };
 
   render() {
@@ -40,34 +43,3 @@ class LocationForm extends Component {
 }
 
 export default LocationForm;
-
-
-// import React, { useState } from 'react';
-// import FloatingLabel from 'react-bootstrap/FloatingLabel';
-// import Form from 'react-bootstrap/Form';
-// import Button from 'react-bootstrap/Button';
-
-// const LocationForm = ({ onSearch }) => {
-//   const [location, setLocation] = useState('');
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     onSearch(location);
-//   };
-
-//   return (
-//     <Form onSubmit={handleSubmit}>
-//       <FloatingLabel controlId="floatingLocation" label="Explore" className="mb-3">
-//         <Form.Control
-//           type="text"
-//           value={location}
-//           onChange={(e) => setLocation(e.target.value)}
-//           placeholder="Explore"
-//         />
-//       </FloatingLabel>
-//       <Button type="submit">Search</Button>
-//     </Form>
-//   );
-// };
-
-// export default LocationForm;

@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.weather-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.weather-icon {
+  font-size: 4rem;
+}
+

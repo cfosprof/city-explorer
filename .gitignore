@@ -24,5 +24,5 @@ yarn-error.log*
 .env
 
 src/components/Movies
-src/components/Weather
+w
 src/components/Errors
