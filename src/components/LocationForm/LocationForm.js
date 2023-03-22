@@ -1,45 +1,41 @@
-import React, { Component } from 'react';
+//src/components/LocationForm/LocationForm.js
+import React, { useState } from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-class LocationForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      location: '',
-    };
-  }
+const LocationForm = (props) => {
+  // Set'location' state and its update function 'setLocation'
+  const [location, setLocation] = useState('');
 
-  handleSubmit = (e) => {
+  // Handle form submission by calling the 'onSearch' function passed as a prop
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log("handleSubmit triggered");
-    this.props.onSearch(this.state.location);
+    props.onSearch(location);
   };
 
-  handleChange = (e) => {
+  // Handle input change by updating the 'location' state variable
+  const handleChange = (e) => {
     const newLocation = e.target.value;
     console.log("Input value:", newLocation);
-    this.setState({ location: newLocation });
+    setLocation(newLocation);
   };
 
-  render() {
-    const { location } = this.state;
-
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <FloatingLabel controlId="floatingLocation" label="Explore" className="mb-3">
-          <Form.Control
-            type="text"
-            value={location}
-            onChange={this.handleChange}
-            placeholder="Explore"
-          />
-        </FloatingLabel>
-        <Button type="submit">Search</Button>
-      </Form>
-    );
-  }
-}
+  // Render the location form with a text input and a search button
+  return (
+    <Form onSubmit={handleSubmit}>
+      <FloatingLabel controlId="floatingLocation" label="Explore" className="mb-3">
+        <Form.Control
+          type="text"
+          value={location}
+          onChange={handleChange}
+          placeholder="Explore"
+        />
+      </FloatingLabel>
+      <Button type="submit" className="search-button">Search</Button>
+    </Form>
+  );
+};
 
 export default LocationForm;

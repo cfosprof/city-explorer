@@ -1,3 +1,4 @@
+//src/App.js
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import './App.css';
@@ -9,13 +10,15 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col } from 'react-bootstrap';
 
-
 const App = () => {
+  // Define state variables to store the location data, any error messages related to location,
+  // weather forecast data, and any error messages related to weather
   const [locationData, setLocationData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [forecastData, setForecastData] = useState(null);
   const [weatherError, setWeatherError] = useState(null);
 
+  // Fetch location coordinates using the LocationIQ API and update state variables accordingly
   const fetchCoordinates = async (location) => {
     try {
       const response = await axios.get(
@@ -32,6 +35,7 @@ const App = () => {
       setLocationData(data);
       setErrorMessage(null);
       
+      // Fetch weather forecast data from the backend API and update state variables accordingly
       try {
         const weatherResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather`, {
           params: {
@@ -60,6 +64,8 @@ const App = () => {
     }
   };
 
+  // Render the application with a location form, any error messages related to location, 
+  // location information, weather forecast, and any error messages related to weather
   return (
     <div className="App">
       <Container>

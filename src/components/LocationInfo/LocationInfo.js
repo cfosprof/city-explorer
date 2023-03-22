@@ -1,21 +1,22 @@
-///src/components/LocationInfo/LocationInfo.js
-import React, { Component } from 'react';
+import React from 'react';
 import MapImage from '../MapImage.js';
 
-class LocationInfo extends Component {
-  render() {
-    const { locationData } = this.props;
+const LocationInfo = (props) => {
+  const { locationData } = props;
 
-    if (!locationData) return null;
-    return (
-      <div>
-        <h2>{locationData.display_name}</h2>
-        <p>Latitude: {locationData.lat}</p>
-        <p>Longitude: {locationData.lon}</p>
-        <MapImage latitude={locationData.lat} longitude={locationData.lon} />
-      </div>
-    );
-  }
-}
+  // If there is no location data, do not render anything
+  if (!locationData) return null;
+
+  // Render the location information including display name, latitude, longitude
+  // and a map image using the MapImage component
+  return (
+    <div>
+      <h2>{locationData.display_name}</h2>
+      <p>Latitude: {locationData.lat}</p>
+      <p>Longitude: {locationData.lon}</p>
+      <MapImage latitude={locationData.lat} longitude={locationData.lon} />
+    </div>
+  );
+};
 
 export default LocationInfo;
