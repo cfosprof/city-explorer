@@ -55,6 +55,4 @@ Actual: Aboout 2 hours
 
 3. Map: As a user, I want to see a map of the city so that I can see the layout of the area I want to explore.
 1HR
-45MIN
-
-4. Error Handling: 
+45MI
