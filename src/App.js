@@ -1,49 +1,65 @@
-//src/App.js
 import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { Row, Col } from 'react-bootstrap';
+
+import Container from 'react-bootstrap/Container';
 import LocationForm from './components/LocationForm/LocationForm.js';
 import LocationInfo from './components/LocationInfo/LocationInfo.js';
 import Weather from './components/Weather/Weather';
-import axios from 'axios';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col } from 'react-bootstrap';
+import Movies from './components/Movies/Movies';
 
 const App = () => {
-  // Define state variables to store the location data, any error messages related to location,
-  // weather forecast data, and any error messages related to weather
+  // Define states to hold location data, forecast data, movie data, and error messages.
   const [locationData, setLocationData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [forecastData, setForecastData] = useState(null);
   const [weatherError, setWeatherError] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [movieError, setMovieError] = useState(null);
+  // const [formatted_address, setFormattedAddress] = useState(null);
 
-  // Fetch location coordinates using the LocationIQ API and update state variables accordingly
+  // Fetch latitude and longitude of the location
   const fetchCoordinates = async (location) => {
     try {
-      const response = await axios.get(
-        'https://us1.locationiq.com/v1/search.php',
-        {
-          params: {
-            key: process.env.REACT_APP_LOCATIONIQ_API_KEY,
-            q: location,
-            format: 'json',
-          },
-        }
-      );
-      const data = response.data[0];
+      const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&address=${location}`);
+      const data = response.data.results[0];
+      // const formattedAddress = formatAddress(data);
+
+      // Set location data and reset error messages.
       setLocationData(data);
+      // setFormattedAddress(data.formatted_address);
+      console.log(data);
       setErrorMessage(null);
-      
-      // Fetch weather forecast data from the backend API and update state variables accordingly
+
+      // Fetch movie data from backend API using location returned from locationIQ API. Set new movie data and reset error messages.
       try {
-        const weatherResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather`, {
+        const movieResponse = await axios.get('/movies', {
           params: {
-            lat: data.lat,
-            lon: data.lon,
+            city: data.address_components[0].long_name,
+          },
+        });
+        setMovies(movieResponse.data);
+      } catch (error) {
+        console.error('Error fetching movie data:', error);
+        setMovieError(
+          error.response
+            ? error.response.data.error
+            : 'Unable to fetch movie data. Please try again later.'
+        );
+      }
+      // Fetch weather data from the backend API using latitude and longitude returned for data from locationIQ API.
+      try {
+        const weatherResponse = await axios.get('/weather', {
+          params: {
+            lat: data.geometry.location.lat,
+            lon: data.geometry.location.lng,
           },
         });
         const forecastData = weatherResponse.data;
+
+        // Set forecast data and reset error messages.
         setForecastData(forecastData);
         setWeatherError(null);
       } catch (error) {
@@ -55,7 +71,11 @@ const App = () => {
         );
       }
     } catch (error) {
+
       console.error('Error fetching coordinates:', error);
+      console.error('Error response:', error.response);
+      console.error('Error status:', error.response.status);
+      console.error('Error data:', error.response.data);
       setErrorMessage(
         error.response
           ? error.response.data.message
@@ -63,17 +83,26 @@ const App = () => {
       );
     }
   };
+  // function formatAddress(locationData) {
+  //   const { address } = locationData;
+  
+  //   const city = address.city || address.town || address.village || '';
+  //   const state = address.state || '';
+  //   const country = address.country || '';
+  
+  //   return `${city}, ${state}, ${country}`;
+  // }
 
-  // Render the application with a location form, any error messages related to location, 
-  // location information, weather forecast, and any error messages related to weather
   return (
     <div className="App">
       <Container>
+        {/* Render the location input form */}
         <Row className="mb-3">
           <Col>
             <LocationForm onSearch={fetchCoordinates} />
           </Col>
         </Row>
+        {/* Render the error message if there is one */}
         {errorMessage && (
           <Row className="mb-3">
             <Col>
@@ -81,19 +110,37 @@ const App = () => {
             </Col>
           </Row>
         )}
+        {/* Render the location info component */}
         <Row className="mb-3">
           <Col>
-            <LocationInfo locationData={locationData} />
+            <LocationInfo locationData={locationData} form />
           </Col>
         </Row>
+    
+        {/* Render the weather component */}
         <Row className="mb-3">
           <Col>
             <Weather forecastData={forecastData} error={weatherError} />
+          </Col>
+        </Row>
+    
+        {/* Render the movie error message if there is one */}
+        {movieError && (
+          <Row className="mb-3">
+            <Col>
+              <div className="alert alert-danger">{movieError}</div>
             </Col>
           </Row>
+        )}
+    
+        {/* Render the movies component */}
+        <Row className="mb-3">
+          <Col>
+            <Movies movies={movies} />
+          </Col>
+        </Row>
       </Container>
     </div>
   );
-};
-
+}
 export default App;

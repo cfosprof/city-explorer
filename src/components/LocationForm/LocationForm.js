@@ -1,24 +1,21 @@
-//src/components/LocationForm/LocationForm.js
 import React, { useState } from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 const LocationForm = (props) => {
-  // Set'location' state and its update function 'setLocation'
+  // Set 'location' state and its update function 'setLocation'
   const [location, setLocation] = useState('');
 
   // Handle form submission by calling the 'onSearch' function passed as a prop
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit triggered");
     props.onSearch(location);
   };
 
   // Handle input change by updating the 'location' state variable
   const handleChange = (e) => {
     const newLocation = e.target.value;
-    console.log("Input value:", newLocation);
     setLocation(newLocation);
   };
 
