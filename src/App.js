@@ -10,6 +10,9 @@ import LocationInfo from './components/LocationInfo/LocationInfo.js';
 import Weather from './components/Weather/Weather';
 import Movies from './components/Movies/Movies';
 import MapImage from './components/MapImage';
+// import Accordion from 'react-bootstrap/Accordion';
+// import Card from 'react-bootstrap/Card';
+// import Button from 'react-bootstrap/Button';
 
 const App = () => {
   // Define states to hold location data, forecast data, movie data, and error messages.
@@ -24,6 +27,7 @@ const App = () => {
   // Fetch latitude and longitude of the location
   const fetchCoordinates = async (location) => {
     try {
+      // Fetch location data using Google Maps API
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&address=${location}`);
       const data = response.data.results[0];
       // const formattedAddress = formatAddress(data);
@@ -84,15 +88,6 @@ const App = () => {
       );
     }
   };
-  // function formatAddress(locationData) {
-  //   const { address } = locationData;
-  
-  //   const city = address.city || address.town || address.village || '';
-  //   const state = address.state || '';
-  //   const country = address.country || '';
-  
-  //   return `${city}, ${state}, ${country}`;
-  // }
 
   return (
     <div className="App">
@@ -156,3 +151,95 @@ const App = () => {
   );
 }
 export default App;
+
+
+// return (
+//   <div className="App">
+//     <Container>
+//       {/* Render the location input form */}
+//       <Row className="mb-3">
+//         <Col>
+//           <LocationForm onSearch={fetchCoordinates} />
+//         </Col>
+//       </Row>
+//       {/* Render the error message if there is one */}
+//       {errorMessage && (
+//         <Row className="mb-3">
+//           <Col>
+//             <div className="alert alert-danger">{errorMessage}</div>
+//           </Col>
+//         </Row>
+//       )}
+//       <Accordion>
+//         {/* Render the location info component */}
+//         <Card>
+//           <Accordion.Item eventKey="0">
+//             <Accordion.Header>
+//               <Card.Header>Location Info</Card.Header>
+//             </Accordion.Header>
+//             <Accordion.Body>
+//               <Card.Body>
+//                 <LocationInfo locationData={locationData} />
+//               </Card.Body>
+//             </Accordion.Body>
+//           </Accordion.Item>
+//         </Card>
+//         {/* Render the map image component */}
+//         {locationData && (
+//           <Card>
+//             <Accordion.Item eventKey="1">
+//               <Accordion.Header>
+//                 <Card.Header>Map Image</Card.Header>
+//               </Accordion.Header>
+//               <Accordion.Body>
+//                 <Card.Body>
+//                   <MapImage
+//                     latitude={locationData.geometry.location.lat}
+//                     longitude={locationData.geometry.location.lng}
+//                     zoom={13}
+//                     width={600}
+//                     height={400}
+//                   />
+//                 </Card.Body>
+//               </Accordion.Body>
+//             </Accordion.Item>
+//           </Card>
+//         )}
+//         {/* Render the weather component */}
+//         <Card>
+//           <Accordion.Item eventKey="2">
+//             <Accordion.Header>
+//               <Card.Header>Weather</Card.Header>
+//             </Accordion.Header>
+//             <Accordion.Body>
+//               <Card.Body>
+//                 <Weather forecastData={forecastData} error={weatherError} />
+//               </Card.Body>
+//             </Accordion.Body>
+//           </Accordion.Item>
+//         </Card>
+//         {/* Render the movies component */}
+//         <Card>
+//           <Accordion.Item eventKey="3">
+//             <Accordion.Header>
+//               <Card.Header>Movies</Card.Header>
+//             </Accordion.Header>
+//             <Accordion.Body>
+//               <Card.Body>
+//                 <Movies movies={movies} />
+//               </Card.Body>
+//             </Accordion.Body>
+//           </Accordion.Item>
+//         </Card>
+//       </Accordion>
+//       {/* Render the movie error message if there is one */}
+//       {movieError && (
+//         <Row className="mb-3">
+//           <Col>
+//             <div className="alert alert-danger">{movieError}</div>
+//           </Col>
+//         </Row>
+//       )}
+//     </Container>
+//   </div>
+// );

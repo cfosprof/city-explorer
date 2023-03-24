@@ -6,10 +6,12 @@
   --secondary-color: #ff9800;
   --light-gray: #f5f5f5;
   --dark-gray: #455a64;
+  
 }
 
 body {
   font-family: 'Roboto', sans-serif;
+  
 }
 
 
@@ -43,7 +45,6 @@ button:focus {
 }
 
 .App-header {
-  background-image: "src/public/photo-1589401901631-356b7ae2f5d1.avif";
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -93,6 +94,7 @@ button:focus {
 .city-background {
   background-repeat: no-repeat;
   background-size: cover;
+  
 }
 
 .form-input {
