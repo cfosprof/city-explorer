@@ -36,7 +36,7 @@ const App = () => {
 
       // Fetch movie data from backend API using location returned from locationIQ API. Set new movie data and reset error messages.
       try {
-        const movieResponse = await axios.get('/movies', {
+        const movieResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movies`, {
           params: {
             city: data.address_components[0].long_name,
           },
@@ -52,7 +52,7 @@ const App = () => {
       }
       // Fetch weather data from the backend API using latitude and longitude returned for data from locationIQ API.
       try {
-        const weatherResponse = await axios.get('/weather', {
+        const weatherResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather`, {
           params: {
             lat: data.geometry.location.lat,
             lon: data.geometry.location.lng,
