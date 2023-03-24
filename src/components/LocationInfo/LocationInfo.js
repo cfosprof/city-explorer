@@ -1,5 +1,5 @@
 import React from 'react';
-import MapImage from '../MapImage.js';
+// import MapImage from '../MapImage.js';
 
 const LocationInfo = (props) => {
   const { locationData } = props;
@@ -14,7 +14,7 @@ const LocationInfo = (props) => {
       <h2>{locationData.formatted_address}</h2>
       <p>Latitude: {locationData.geometry.location.lat}</p>
       <p>Longitude: {locationData.geometry.location.lng}</p>
-      <MapImage latitude={locationData.lat} longitude={locationData.lon} />
+      {/* <MapImage latitude={locationData.lat} longitude={locationData.lon} /> */}
     </div>
   );
 };

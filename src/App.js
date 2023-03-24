@@ -9,6 +9,7 @@ import LocationForm from './components/LocationForm/LocationForm.js';
 import LocationInfo from './components/LocationInfo/LocationInfo.js';
 import Weather from './components/Weather/Weather';
 import Movies from './components/Movies/Movies';
+import MapImage from './components/MapImage';
 
 const App = () => {
   // Define states to hold location data, forecast data, movie data, and error messages.
@@ -111,11 +112,22 @@ const App = () => {
           </Row>
         )}
         {/* Render the location info component */}
-        <Row className="mb-3">
-          <Col>
-            <LocationInfo locationData={locationData} form />
-          </Col>
-        </Row>
+        <LocationInfo locationData={locationData} />
+    
+        {/* Render the map image component */}
+        {locationData && (
+          <Row className="mb-3">
+            <Col>
+              <MapImage
+                latitude={locationData.geometry.location.lat}
+                longitude={locationData.geometry.location.lng}
+                zoom={13}
+                width={600}
+                height={400}
+              />
+            </Col>
+          </Row>
+        )}
     
         {/* Render the weather component */}
         <Row className="mb-3">
