@@ -14,9 +14,9 @@ const Movies = ({ movies }) => {
   };
 
   return (
-    <Row>
+    <Row className="horizontal-scroll">
       {movies.map((movie, index) => (
-        <Col key={index} md={4} className="mb-4">
+        <Col key={index} md={4} className="mb-4 movie-col">
           <MovieCard
             movie={movie}
             onClick={() => toggleExpanded(index)}
