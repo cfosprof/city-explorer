@@ -3,6 +3,7 @@
 [Live site](https://cityexploreryeet.netlify.app/ )
 [Front end GH](https://github.com/cfosprof/city-explorer)
 [Backend API GH](https://github.com/cfosprof/city-explorer-api)
+[Trello](https://trello.com/b/UaO42oH6/city-explorer)
 
 **Author**: Christopher Foster 
 **Version**: 1.0.0
